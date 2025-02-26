@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.practise_ground.enums.Gender;
+import com.practise_ground.enums.UserRole;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -52,6 +53,10 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "gender")
 	private Gender gender;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role")
+	private UserRole role;
+
 	@Column(name = "date_of_birth", columnDefinition = "TIMESTAMP")
 	private LocalDateTime dateOfBirth;
 
@@ -73,7 +78,7 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "postal_code")
 	private String postalCode;
 
-	@OneToMany(mappedBy = "dairyfarm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<SubjectEntity> subjects;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<UserSubjectEntity> userSubjects;
 
 }

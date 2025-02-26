@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.practise_ground.enums.Gender;
+import com.practise_ground.enums.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,8 @@ public class UserDTO extends BaseDTO {
 	private GradeDTO grade;
 
 	private Gender gender;
+
+	private UserRole role;
 
 	private LocalDateTime dateOfBirth;
 

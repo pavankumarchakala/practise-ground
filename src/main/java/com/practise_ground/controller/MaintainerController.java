@@ -24,9 +24,9 @@ import lombok.AllArgsConstructor;
  * @author Pavankumar - created date : Feb 14, 2025
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/maintainer")
 @AllArgsConstructor
-public class UserController {
+public class MaintainerController {
 
 	private final IUserService userService;
 
@@ -42,13 +42,13 @@ public class UserController {
 
 	@PostMapping("/create")
 	public ResponseEntity<UserDTO> create(@RequestBody UserDTO user) {
-		user.setRole(UserRole.USER);
+		user.setRole(UserRole.MAINTAINER);
 		return userService.create(user);
 	}
 
 	@PutMapping("/update")
 	public ResponseEntity<UserDTO> update(@RequestBody UserDTO user) {
-		user.setRole(UserRole.USER);
+		user.setRole(UserRole.MAINTAINER);
 		return userService.update(user);
 	}
 

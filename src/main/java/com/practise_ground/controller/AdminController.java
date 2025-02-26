@@ -21,12 +21,13 @@ import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 
 /**
- * @author Pavankumar - created date : Feb 14, 2025
+ * @author Pavankumar - created date : Feb 26, 2025
+ *
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin")
 @AllArgsConstructor
-public class UserController {
+public class AdminController {
 
 	private final IUserService userService;
 
@@ -42,13 +43,13 @@ public class UserController {
 
 	@PostMapping("/create")
 	public ResponseEntity<UserDTO> create(@RequestBody UserDTO user) {
-		user.setRole(UserRole.USER);
+		user.setRole(UserRole.ADMIN);
 		return userService.create(user);
 	}
 
 	@PutMapping("/update")
 	public ResponseEntity<UserDTO> update(@RequestBody UserDTO user) {
-		user.setRole(UserRole.USER);
+		user.setRole(UserRole.ADMIN);
 		return userService.update(user);
 	}
 
