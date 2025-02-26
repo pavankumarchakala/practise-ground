@@ -14,19 +14,19 @@ import com.practise_ground.entity.PractiseGroundWeekEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.exceptions.PractiseGroundException;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Pavankumar - created date : Feb 26, 2025
  *
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PractiseGroundWeekServiceImpl implements IPractiseGroundWeekService {
 
 	private final IPractiseGroundWeekDAO practiseGroundWeekDAO;
 
-	private final ModelMapper modelMapper;
+	private final ModelMapper modelMapper = new ModelMapper();
 
 	@Override
 	@Transactional

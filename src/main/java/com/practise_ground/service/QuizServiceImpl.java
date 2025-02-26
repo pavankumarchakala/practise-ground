@@ -14,19 +14,19 @@ import com.practise_ground.entity.QuizEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.exceptions.PractiseGroundException;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Pavankumar - created date : Feb 26, 2025
  *
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class QuizServiceImpl implements IQuizService {
 
 	private final IQuizDAO quizDAO;
 
-	private final ModelMapper modelMapper;
+	private final ModelMapper modelMapper = new ModelMapper();
 
 	@Override
 	@Transactional
