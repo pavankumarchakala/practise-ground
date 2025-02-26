@@ -15,7 +15,7 @@ public interface IUserService {
 
 	ResponseEntity<UserDTO> create(UserDTO user);
 
-	ResponseEntity<UserDTO> update(UserDTO userDTO);
+	ResponseEntity<UserDTO> update(UserDTO user);
 
 	ResponseEntity<UserDTO> getById(long id);
 

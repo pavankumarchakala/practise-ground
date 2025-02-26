@@ -1,0 +1,86 @@
+package com.practise_ground.service;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.practise_ground.dao.IGradeDAO;
+import com.practise_ground.dto.GradeDTO;
+import com.practise_ground.entity.GradeEntity;
+import com.practise_ground.enums.Status;
+import com.practise_ground.exceptions.PractiseGroundException;
+
+import lombok.AllArgsConstructor;
+
+/**
+ * @author Pavankumar - created date : Feb 26, 2025
+ *
+ */
+@Service
+@AllArgsConstructor
+public class GradeServiceImpl implements IGradeService {
+
+	private final IGradeDAO gradeDAO;
+
+	private final ModelMapper modelMapper;
+
+	@Override
+	@Transactional
+	public ResponseEntity<GradeDTO> create(GradeDTO gradeDTO) {
+
+		GradeEntity entity = modelMapper.map(gradeDTO, GradeEntity.class);
+
+		GradeEntity savedEntity = gradeDAO.save(entity);
+
+		gradeDTO.setId(savedEntity.getId());
+
+		return ResponseEntity.ok(gradeDTO);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<GradeDTO> update(GradeDTO gradeDTO) {
+
+		GradeEntity entity = modelMapper.map(gradeDTO, GradeEntity.class);
+
+		gradeDAO.save(entity);
+
+		return ResponseEntity.ok(gradeDTO);
+	}
+
+	@Override
+	public ResponseEntity<GradeDTO> getById(long id) {
+
+		GradeEntity entity = gradeDAO.findById(id).orElseThrow(() -> PractiseGroundException.builder()
+				.message("No Grade Found !!").httpStatus(HttpStatus.NOT_FOUND).build());
+
+		GradeDTO dto = modelMapper.map(entity, GradeDTO.class);
+
+		return ResponseEntity.ok(dto);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Boolean> delete(long id) {
+
+		GradeEntity entity = gradeDAO.findById(id).orElseThrow(() -> PractiseGroundException.builder()
+				.message("No Grade Found !!").httpStatus(HttpStatus.NOT_FOUND).build());
+
+		entity.setStatus(Status.INACTIVE);
+
+		return ResponseEntity.ok(true);
+	}
+
+	@Override
+	public ResponseEntity<List<GradeDTO>> findAll() {
+
+		return ResponseEntity.ok(
+				gradeDAO.findAll().parallelStream().map(entity -> modelMapper.map(entity, GradeDTO.class)).toList());
+
+	}
+
+}
