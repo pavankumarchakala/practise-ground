@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: practise-ground
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 
+            client-secret: 
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/practise_ground
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+#
+#  flyway:
+#    enabled: true
+#    baseline-on-migrate: true
+#    create-schemas: true
+#    schemas: practise_ground
+#    default-schema: practise_ground
+
+server:
+  port: 9191
