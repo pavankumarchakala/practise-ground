@@ -48,9 +48,9 @@ public class UserServiceImpl implements IUserService {
 
 		UserEntity entity = modelMapper.map(userDTO, UserEntity.class);
 
-		userDAO.save(entity);
+		UserEntity savedEntity = userDAO.save(entity);
 
-		return ResponseEntity.ok(userDTO);
+		return ResponseEntity.ok(modelMapper.map(savedEntity, UserDTO.class));
 	}
 
 	@Override
@@ -79,15 +79,15 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public ResponseEntity<List<UserDTO>> findAll() {
 
-		return ResponseEntity
-				.ok(userDAO.findAll().parallelStream().map(entity -> modelMapper.map(entity, UserDTO.class)).toList());
+		return ResponseEntity.ok(userDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+				.map(entity -> modelMapper.map(entity, UserDTO.class)).toList());
 
 	}
 
 	@Override
 	public ResponseEntity<List<UserDTO>> findAllByRole(UserRole role) {
 
-		return ResponseEntity.ok(userDAO.findAllByRole(role).parallelStream()
+		return ResponseEntity.ok(userDAO.findAllByRoleAndStatus(role, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserDTO.class)).toList());
 
 	}

@@ -1,5 +1,6 @@
 package com.practise_ground.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class GradeDTO extends BaseDTO {
 
 	private static final long serialVersionUID = -4835737911993999581L;
 
+	@NotEmpty(message = "Grade name must not be empty !!!")
 	private String name;
 
 }

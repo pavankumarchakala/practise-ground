@@ -47,6 +47,8 @@ public class GradeServiceImpl implements IGradeService {
 
 		GradeEntity entity = modelMapper.map(gradeDTO, GradeEntity.class);
 
+		entity.setStatus(Status.ACTIVE);
+
 		gradeDAO.save(entity);
 
 		return ResponseEntity.ok(gradeDTO);
@@ -78,8 +80,8 @@ public class GradeServiceImpl implements IGradeService {
 	@Override
 	public ResponseEntity<List<GradeDTO>> findAll() {
 
-		return ResponseEntity.ok(
-				gradeDAO.findAll().parallelStream().map(entity -> modelMapper.map(entity, GradeDTO.class)).toList());
+		return ResponseEntity.ok(gradeDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+				.map(entity -> modelMapper.map(entity, GradeDTO.class)).toList());
 
 	}
 

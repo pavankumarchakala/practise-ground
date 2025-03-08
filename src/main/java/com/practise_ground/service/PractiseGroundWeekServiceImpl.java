@@ -47,6 +47,8 @@ public class PractiseGroundWeekServiceImpl implements IPractiseGroundWeekService
 
 		PractiseGroundWeekEntity entity = modelMapper.map(practiseGroundWeekDTO, PractiseGroundWeekEntity.class);
 
+		entity.setStatus(Status.ACTIVE);
+
 		practiseGroundWeekDAO.save(entity);
 
 		return ResponseEntity.ok(practiseGroundWeekDTO);
@@ -78,7 +80,7 @@ public class PractiseGroundWeekServiceImpl implements IPractiseGroundWeekService
 	@Override
 	public ResponseEntity<List<PractiseGroundWeekDTO>> findAll() {
 
-		return ResponseEntity.ok(practiseGroundWeekDAO.findAll().parallelStream()
+		return ResponseEntity.ok(practiseGroundWeekDAO.findAllByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, PractiseGroundWeekDTO.class)).toList());
 
 	}

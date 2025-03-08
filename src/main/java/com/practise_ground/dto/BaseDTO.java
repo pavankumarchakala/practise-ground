@@ -28,10 +28,13 @@ public class BaseDTO implements Serializable {
 	@Hidden
 	private LocalDateTime updatedDate;
 
+	@Hidden
 	private String createdBy;
 
+	@Hidden
 	private String updatedBy;
 
+	@Hidden
 	private Status status;
 
 }

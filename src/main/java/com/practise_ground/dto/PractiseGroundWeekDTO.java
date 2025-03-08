@@ -1,5 +1,6 @@
 package com.practise_ground.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class PractiseGroundWeekDTO extends BaseDTO {
 
 	private static final long serialVersionUID = 7841898632227184041L;
 
+	@NotEmpty(message = "Week name must not be empty !!!")
 	private String name;
 
 }

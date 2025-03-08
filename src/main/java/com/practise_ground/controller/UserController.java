@@ -18,6 +18,8 @@ import com.practise_ground.enums.UserRole;
 import com.practise_ground.service.IUserService;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 
 /**
@@ -31,34 +33,36 @@ public class UserController {
 	private final IUserService userService;
 
 	@GetMapping("/")
+	@Hidden
 	public String defaultMapping() {
 		return "Welcome !!";
 	}
 
 	@GetMapping("/loggedInUser")
+	@Hidden
 	public ResponseEntity<Principal> loggedInUserInfo(Principal principal) {
 		return ResponseEntity.ok(principal);
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<UserDTO> create(@RequestBody UserDTO user) {
+	public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO user) {
 		user.setRole(UserRole.USER);
 		return userService.create(user);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<UserDTO> update(@RequestBody UserDTO user) {
+	public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO user) {
 		user.setRole(UserRole.USER);
 		return userService.update(user);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable long id) {
+	public ResponseEntity<UserDTO> update(@Valid @Positive @PathVariable long id) {
 		return userService.getById(id);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delete(@PathVariable long id) {
+	public ResponseEntity<Boolean> delete(@Valid @Positive @PathVariable long id) {
 		return userService.delete(id);
 	}
 

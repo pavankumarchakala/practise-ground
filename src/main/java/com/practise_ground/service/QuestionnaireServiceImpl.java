@@ -47,6 +47,8 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
 
 		QuestionnaireEntity entity = modelMapper.map(questionnaireDTO, QuestionnaireEntity.class);
 
+		entity.setStatus(Status.ACTIVE);
+
 		questionnaireDAO.save(entity);
 
 		return ResponseEntity.ok(questionnaireDTO);
@@ -78,7 +80,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
 	@Override
 	public ResponseEntity<List<QuestionnaireDTO>> findAll() {
 
-		return ResponseEntity.ok(questionnaireDAO.findAll().parallelStream()
+		return ResponseEntity.ok(questionnaireDAO.findAllByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, QuestionnaireDTO.class)).toList());
 
 	}

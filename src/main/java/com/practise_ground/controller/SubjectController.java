@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.practise_ground.dto.SubjectDTO;
 import com.practise_ground.service.ISubjectService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 
 /**
@@ -29,22 +31,22 @@ public class SubjectController {
 	private final ISubjectService subjectService;
 
 	@PostMapping("/create")
-	public ResponseEntity<SubjectDTO> create(@RequestBody SubjectDTO subject) {
+	public ResponseEntity<SubjectDTO> create(@Valid @RequestBody SubjectDTO subject) {
 		return subjectService.create(subject);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<SubjectDTO> update(@RequestBody SubjectDTO subject) {
+	public ResponseEntity<SubjectDTO> update(@Valid @RequestBody SubjectDTO subject) {
 		return subjectService.update(subject);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<SubjectDTO> update(@PathVariable long id) {
+	public ResponseEntity<SubjectDTO> update(@Valid @Positive @PathVariable long id) {
 		return subjectService.getById(id);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delete(@PathVariable long id) {
+	public ResponseEntity<Boolean> delete(@Positive @PathVariable long id) {
 		return subjectService.delete(id);
 	}
 

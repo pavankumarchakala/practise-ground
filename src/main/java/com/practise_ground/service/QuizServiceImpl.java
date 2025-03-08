@@ -47,6 +47,8 @@ public class QuizServiceImpl implements IQuizService {
 
 		QuizEntity entity = modelMapper.map(quizDTO, QuizEntity.class);
 
+		entity.setStatus(Status.ACTIVE);
+
 		quizDAO.save(entity);
 
 		return ResponseEntity.ok(quizDTO);
@@ -78,8 +80,8 @@ public class QuizServiceImpl implements IQuizService {
 	@Override
 	public ResponseEntity<List<QuizDTO>> findAll() {
 
-		return ResponseEntity
-				.ok(quizDAO.findAll().parallelStream().map(entity -> modelMapper.map(entity, QuizDTO.class)).toList());
+		return ResponseEntity.ok(quizDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+				.map(entity -> modelMapper.map(entity, QuizDTO.class)).toList());
 
 	}
 
