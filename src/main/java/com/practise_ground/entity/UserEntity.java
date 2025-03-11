@@ -43,7 +43,7 @@ public class UserEntity extends BaseEntity {
 	private String fullName;
 
 	@ManyToOne(targetEntity = GradeEntity.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "grade_id", nullable = false)
+	@JoinColumn(name = "grade_id", nullable = true)
 	private GradeEntity grade;
 
 	@Enumerated(EnumType.STRING)
