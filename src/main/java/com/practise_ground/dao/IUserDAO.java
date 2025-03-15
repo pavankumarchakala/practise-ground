@@ -1,6 +1,7 @@
 package com.practise_ground.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,7 @@ public interface IUserDAO extends JpaRepository<UserEntity, Long> {
 	List<UserEntity> findAllByStatus(Status active);
 
 	List<UserEntity> findAllByRoleAndStatus(UserRole role, Status active);
+
+	Optional<UserEntity> findByEmailAndStatus(String email, Status active);
 
 }

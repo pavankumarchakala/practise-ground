@@ -25,6 +25,8 @@ public interface IUserService {
 
 	ResponseEntity<List<UserDTO>> findAllByRole(UserRole role);
 
-	ResponseEntity<Boolean> verifyUser(long userId);
+	ResponseEntity<Boolean> verifyUserById(long userId);
+
+	ResponseEntity<Boolean> verifyUserByEmail(String email);
 
 }

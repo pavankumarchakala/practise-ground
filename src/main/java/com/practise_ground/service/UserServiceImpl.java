@@ -1,6 +1,7 @@
 package com.practise_ground.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,17 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	@Transactional
 	public ResponseEntity<UserDTO> create(UserDTO userDTO) {
+
+		Optional<UserEntity> optionalUser = userDAO.findByEmailAndStatus(userDTO.getEmail(), Status.ACTIVE);
+
+		if (optionalUser.isPresent()) {
+
+			UserEntity userEntity = optionalUser.get();
+
+			userDTO.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(userEntity.getId(), Status.ACTIVE)
+					.parallelStream().map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
+
+		}
 
 		UserEntity entity = modelMapper.map(userDTO, UserEntity.class);
 
@@ -123,10 +135,20 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	@Transactional
-	public ResponseEntity<Boolean> verifyUser(long userId) {
+	public ResponseEntity<Boolean> verifyUserById(long userId) {
 
 		userDAO.findById(userId).orElseThrow(() -> PractiseGroundException.builder().message("No User Found !!")
 				.httpStatus(HttpStatus.NOT_FOUND).build()).setEmailVerified(true);
+
+		return ResponseEntity.ok(true);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Boolean> verifyUserByEmail(String email) {
+
+		userDAO.findByEmailAndStatus(email, Status.ACTIVE).orElseThrow(() -> PractiseGroundException.builder()
+				.message("No User Found !!").httpStatus(HttpStatus.NOT_FOUND).build()).setEmailVerified(true);
 
 		return ResponseEntity.ok(true);
 	}

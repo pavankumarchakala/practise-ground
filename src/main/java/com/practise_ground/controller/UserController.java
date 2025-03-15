@@ -79,7 +79,12 @@ public class UserController {
 	}
 
 	@GetMapping("/verifyUser/{id}")
-	public ResponseEntity<Boolean> findAllByRole(@Valid @Positive @PathVariable long id) {
-		return userService.verifyUser(id);
+	public ResponseEntity<Boolean> verifyUserById(@Valid @Positive @PathVariable long id) {
+		return userService.verifyUserById(id);
+	}
+
+	@GetMapping("/verifyUser/{email}")
+	public ResponseEntity<Boolean> verifyUserByEmail(@Valid @Positive @PathVariable String email) {
+		return userService.verifyUserByEmail(email);
 	}
 }
