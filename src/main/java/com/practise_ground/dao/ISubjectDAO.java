@@ -16,7 +16,7 @@ import com.practise_ground.enums.Status;
 @Repository
 public interface ISubjectDAO extends JpaRepository<SubjectEntity, Long> {
 
-	List<SubjectEntity> findAllByStatus(Status active);
+	List<SubjectEntity> findByStatus(Status active);
 
 	SubjectEntity findByName(String name);
 

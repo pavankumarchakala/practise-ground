@@ -15,7 +15,7 @@ import com.practise_ground.enums.Status;
 @Repository
 public interface IPractiseGroundYearDAO extends JpaRepository<PractiseGroundYearEntity, Long> {
 
-	List<PractiseGroundYearEntity> findAllByStatus(Status active);
+	List<PractiseGroundYearEntity> findByStatus(Status active);
 
 	PractiseGroundYearEntity findByName(String name);
 

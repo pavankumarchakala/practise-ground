@@ -80,7 +80,7 @@ public class UserGradeServiceImpl implements IUserGradeService {
 	@Override
 	public ResponseEntity<List<UserGradeDTO>> findAllByUser(long userId) {
 
-		return ResponseEntity.ok(userGradeDAO.findAllByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(userGradeDAO.findByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserGradeDTO.class)).toList());
 
 	}
@@ -88,7 +88,7 @@ public class UserGradeServiceImpl implements IUserGradeService {
 	@Override
 	public ResponseEntity<List<UserGradeDTO>> findAllByGrade(long gradeId) {
 
-		return ResponseEntity.ok(userGradeDAO.findAllByGradeIdAndStatus(gradeId, Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(userGradeDAO.findByGradeIdAndStatus(gradeId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserGradeDTO.class)).toList());
 
 	}

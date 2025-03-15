@@ -75,7 +75,6 @@ public class UserController {
 	}
 
 	@GetMapping("/all")
-	@Hidden
 	public ResponseEntity<List<UserDTO>> findAll() {
 		return userService.findAll();
 	}

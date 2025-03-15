@@ -15,7 +15,7 @@ import com.practise_ground.enums.Status;
 @Repository
 public interface IQuizDAO extends JpaRepository<QuizEntity, Long> {
 
-	List<QuizEntity> findAllByStatus(Status active);
+	List<QuizEntity> findByStatus(Status active);
 
 	QuizEntity findByGradeIdAndSubjectIdAndWeekIdAndYearId(long gradeId, long subjectId, long weekId, long yearId);
 

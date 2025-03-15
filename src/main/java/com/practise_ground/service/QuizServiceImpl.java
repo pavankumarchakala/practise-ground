@@ -80,7 +80,7 @@ public class QuizServiceImpl implements IQuizService {
 	@Override
 	public ResponseEntity<List<QuizDTO>> findAll() {
 
-		return ResponseEntity.ok(quizDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(quizDAO.findByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, QuizDTO.class)).toList());
 
 	}

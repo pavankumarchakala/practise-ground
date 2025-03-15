@@ -16,4 +16,6 @@ public interface IGradeSubjectDAO extends JpaRepository<GradeSubjectEntity, Long
 
 	List<GradeSubjectEntity> findAllByGradeId(long gradeId);
 
+	List<GradeSubjectEntity> findAllByGradeIdAndSubjectIsDefault(long gradeId, boolean isDefault);
+
 }

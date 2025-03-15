@@ -93,7 +93,7 @@ public class GradeServiceImpl implements IGradeService {
 	@Override
 	public ResponseEntity<List<GradeDTO>> findAll() {
 
-		return ResponseEntity.ok(gradeDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(gradeDAO.findByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, GradeDTO.class)).toList());
 
 	}

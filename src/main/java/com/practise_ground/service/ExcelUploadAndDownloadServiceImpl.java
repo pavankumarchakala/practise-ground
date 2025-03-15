@@ -163,14 +163,14 @@ public class ExcelUploadAndDownloadServiceImpl implements IExcelUploadAndDownloa
 			cell.setCellStyle(cellStyle);
 		}
 
-		String[] grades = gradeDAO.findAllByStatus(Status.ACTIVE).parallelStream().map(item -> item.getName())
+		String[] grades = gradeDAO.findByStatus(Status.ACTIVE).parallelStream().map(item -> item.getName())
 				.toArray(String[]::new);
-		String[] subjects = subjectDAO.findAllByStatus(Status.ACTIVE).parallelStream().map(item -> item.getName())
+		String[] subjects = subjectDAO.findByStatus(Status.ACTIVE).parallelStream().map(item -> item.getName())
 				.toArray(String[]::new);
-		String[] weeks = practiseGroundWeekDAO.findAllByStatus(Status.ACTIVE).parallelStream()
-				.map(item -> item.getName()).toArray(String[]::new);
-		String[] years = practiseGroundYearDAO.findAllByStatus(Status.ACTIVE).parallelStream()
-				.map(item -> item.getName()).toArray(String[]::new);
+		String[] weeks = practiseGroundWeekDAO.findByStatus(Status.ACTIVE).parallelStream().map(item -> item.getName())
+				.toArray(String[]::new);
+		String[] years = practiseGroundYearDAO.findByStatus(Status.ACTIVE).parallelStream().map(item -> item.getName())
+				.toArray(String[]::new);
 
 		DataValidationHelper validationHelper = new XSSFDataValidationHelper(sheet);
 

@@ -15,7 +15,7 @@ import com.practise_ground.enums.Status;
 @Repository
 public interface IGradeDAO extends JpaRepository<GradeEntity, Long> {
 
-	List<GradeEntity> findAllByStatus(Status active);
+	List<GradeEntity> findByStatus(Status active);
 
 	GradeEntity findByName(String name);
 

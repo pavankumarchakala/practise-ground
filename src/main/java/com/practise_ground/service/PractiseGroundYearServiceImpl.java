@@ -80,7 +80,7 @@ public class PractiseGroundYearServiceImpl implements IPractiseGroundYearService
 	@Override
 	public ResponseEntity<List<PractiseGroundYearDTO>> findAll() {
 
-		return ResponseEntity.ok(practiseGroundYearDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(practiseGroundYearDAO.findByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, PractiseGroundYearDTO.class)).toList());
 
 	}

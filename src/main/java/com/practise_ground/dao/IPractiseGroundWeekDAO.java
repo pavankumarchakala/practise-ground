@@ -15,7 +15,7 @@ import com.practise_ground.enums.Status;
 @Repository
 public interface IPractiseGroundWeekDAO extends JpaRepository<PractiseGroundWeekEntity, Long> {
 
-	List<PractiseGroundWeekEntity> findAllByStatus(Status active);
+	List<PractiseGroundWeekEntity> findByStatus(Status active);
 
 	PractiseGroundWeekEntity findByName(String name);
 

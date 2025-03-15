@@ -15,6 +15,6 @@ import com.practise_ground.enums.Status;
 @Repository
 public interface IQuestionnaireDAO extends JpaRepository<QuestionnaireEntity, Long> {
 
-	List<QuestionnaireEntity> findAllByStatus(Status active);
+	List<QuestionnaireEntity> findByStatus(Status active);
 
 }

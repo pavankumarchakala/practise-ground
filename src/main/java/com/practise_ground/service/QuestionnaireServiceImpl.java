@@ -80,7 +80,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
 	@Override
 	public ResponseEntity<List<QuestionnaireDTO>> findAll() {
 
-		return ResponseEntity.ok(questionnaireDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(questionnaireDAO.findByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, QuestionnaireDTO.class)).toList());
 
 	}

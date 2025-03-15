@@ -80,7 +80,7 @@ public class UserQuizServiceImpl implements IUserQuizService {
 	@Override
 	public ResponseEntity<List<UserQuizDTO>> findAllByUser(long userId) {
 
-		return ResponseEntity.ok(userQuizDAO.findAllByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(userQuizDAO.findByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserQuizDTO.class)).toList());
 
 	}
@@ -88,7 +88,7 @@ public class UserQuizServiceImpl implements IUserQuizService {
 	@Override
 	public ResponseEntity<List<UserQuizDTO>> findAllByQuiz(long quizId) {
 
-		return ResponseEntity.ok(userQuizDAO.findAllByQuizIdAndStatus(quizId, Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(userQuizDAO.findByQuizIdAndStatus(quizId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserQuizDTO.class)).toList());
 
 	}

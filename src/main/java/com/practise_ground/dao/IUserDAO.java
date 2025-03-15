@@ -17,11 +17,11 @@ import com.practise_ground.enums.UserRole;
 @Repository
 public interface IUserDAO extends JpaRepository<UserEntity, Long> {
 
-	List<UserEntity> findAllByRole(UserRole role);
+	List<UserEntity> findByRole(UserRole role);
 
-	List<UserEntity> findAllByStatus(Status active);
+	List<UserEntity> findByStatus(Status active);
 
-	List<UserEntity> findAllByRoleAndStatus(UserRole role, Status active);
+	List<UserEntity> findByRoleAndStatus(UserRole role, Status active);
 
 	Optional<UserEntity> findByEmailAndStatus(String email, Status active);
 

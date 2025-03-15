@@ -80,7 +80,7 @@ public class UserSubjectServiceImpl implements IUserSubjectService {
 	@Override
 	public ResponseEntity<List<UserSubjectDTO>> findAllByUser(long userId) {
 
-		return ResponseEntity.ok(userSubjectDAO.findAllByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(userSubjectDAO.findByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserSubjectDTO.class)).toList());
 
 	}
@@ -88,7 +88,7 @@ public class UserSubjectServiceImpl implements IUserSubjectService {
 	@Override
 	public ResponseEntity<List<UserSubjectDTO>> findAllBySubject(long subjectId) {
 
-		return ResponseEntity.ok(userSubjectDAO.findAllBySubjectIdAndStatus(subjectId, Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(userSubjectDAO.findBySubjectIdAndStatus(subjectId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserSubjectDTO.class)).toList());
 
 	}

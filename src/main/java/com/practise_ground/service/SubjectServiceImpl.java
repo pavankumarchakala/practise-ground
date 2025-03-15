@@ -91,7 +91,7 @@ public class SubjectServiceImpl implements ISubjectService {
 	@Override
 	public ResponseEntity<List<SubjectDTO>> findAll() {
 
-		return ResponseEntity.ok(subjectDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(subjectDAO.findByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, SubjectDTO.class)).toList());
 
 	}

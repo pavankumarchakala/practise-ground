@@ -80,7 +80,7 @@ public class PractiseGroundWeekServiceImpl implements IPractiseGroundWeekService
 	@Override
 	public ResponseEntity<List<PractiseGroundWeekDTO>> findAll() {
 
-		return ResponseEntity.ok(practiseGroundWeekDAO.findAllByStatus(Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(practiseGroundWeekDAO.findByStatus(Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, PractiseGroundWeekDTO.class)).toList());
 
 	}
