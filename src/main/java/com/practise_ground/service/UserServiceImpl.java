@@ -78,6 +78,9 @@ public class UserServiceImpl implements IUserService {
 		userDTO.setSubjects(userSubjectDAO.findByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
 				.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
 
+		userDTO.setGrades(userGradeDAO.findByUserIdAndStatus(entity.getId(), Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getGrade(), GradeDTO.class)).toList());
+
 		return ResponseEntity.ok(userDTO);
 	}
 
@@ -142,6 +145,9 @@ public class UserServiceImpl implements IUserService {
 		dto.setSubjects(userSubjectDAO.findByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
 				.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
 
+		dto.setGrades(userGradeDAO.findByUserIdAndStatus(entity.getId(), Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getGrade(), GradeDTO.class)).toList());
+
 		return ResponseEntity.ok(dto);
 	}
 
@@ -152,6 +158,9 @@ public class UserServiceImpl implements IUserService {
 				.builder().message("No User Found !!").httpStatus(HttpStatus.NOT_FOUND).build());
 
 		UserDTO dto = modelMapper.map(entity, UserDTO.class);
+
+		dto.setGrades(userGradeDAO.findByUserIdAndStatus(entity.getId(), Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getGrade(), GradeDTO.class)).toList());
 
 		dto.setSubjects(userSubjectDAO.findByUserIdAndStatus(entity.getId(), Status.ACTIVE).parallelStream()
 				.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
@@ -192,6 +201,8 @@ public class UserServiceImpl implements IUserService {
 			UserDTO dto = modelMapper.map(entity, UserDTO.class);
 			dto.setSubjects(userSubjectDAO.findByUserIdAndStatus(dto.getId(), Status.ACTIVE).parallelStream()
 					.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
+			dto.setGrades(userGradeDAO.findByUserIdAndStatus(dto.getId(), Status.ACTIVE).parallelStream()
+					.map(item -> modelMapper.map(item.getGrade(), GradeDTO.class)).toList());
 			return dto;
 		}).toList());
 
