@@ -19,6 +19,8 @@ public interface IUserService {
 
 	ResponseEntity<UserDTO> getById(long userId);
 
+	ResponseEntity<UserDTO> getByEmail(String email);
+
 	ResponseEntity<Boolean> delete(long userId);
 
 	ResponseEntity<List<UserDTO>> findAll();
@@ -26,7 +28,5 @@ public interface IUserService {
 	ResponseEntity<List<UserDTO>> findAllByRole(UserRole role);
 
 	ResponseEntity<Boolean> verifyUserById(long userId);
-
-	ResponseEntity<Boolean> verifyUserByEmail(String email);
 
 }

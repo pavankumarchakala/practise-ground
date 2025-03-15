@@ -98,6 +98,20 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	public ResponseEntity<UserDTO> getByEmail(String email) {
+
+		UserEntity entity = userDAO.findByEmailAndStatus(email, Status.ACTIVE).orElseThrow(() -> PractiseGroundException
+				.builder().message("No User Found !!").httpStatus(HttpStatus.NOT_FOUND).build());
+
+		UserDTO dto = modelMapper.map(entity, UserDTO.class);
+
+		dto.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(entity.getId(), Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
+
+		return ResponseEntity.ok(dto);
+	}
+
+	@Override
 	@Transactional
 	public ResponseEntity<Boolean> delete(long id) {
 
@@ -134,6 +148,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Boolean> verifyUserById(long userId) {
 
 		userDAO.findById(userId).orElseThrow(() -> PractiseGroundException.builder().message("No User Found !!")
@@ -142,13 +157,14 @@ public class UserServiceImpl implements IUserService {
 		return ResponseEntity.ok(true);
 	}
 
-	@Override
-	public ResponseEntity<Boolean> verifyUserByEmail(String email) {
-
-		userDAO.findByEmailAndStatus(email, Status.ACTIVE).orElseThrow(() -> PractiseGroundException.builder()
-				.message("No User Found !!").httpStatus(HttpStatus.NOT_FOUND).build()).setEmailVerified(true);
-
-		return ResponseEntity.ok(true);
-	}
+//	@Override
+//	@Transactional
+//	public ResponseEntity<Boolean> verifyUserByEmail(String email) {
+//
+//		userDAO.findByEmail(email).orElseThrow(() -> PractiseGroundException.builder().message("No User Found !!")
+//				.httpStatus(HttpStatus.NOT_FOUND).build()).setEmailVerified(true);
+//
+//		return ResponseEntity.ok(true);
+//	}
 
 }

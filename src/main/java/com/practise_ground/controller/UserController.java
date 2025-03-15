@@ -64,6 +64,11 @@ public class UserController {
 		return userService.getById(id);
 	}
 
+	@GetMapping("/{email:.+}")
+	public ResponseEntity<UserDTO> update(@Valid @Email @RequestParam String email) {
+		return userService.getByEmail(email);
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> delete(@Valid @Positive @PathVariable long id) {
 		return userService.delete(id);
@@ -85,13 +90,13 @@ public class UserController {
 		return userService.verifyUserById(id);
 	}
 
-	@GetMapping("/verifyUser")
-	public ResponseEntity<Boolean> verifyUserById(@Valid @Email @RequestParam String email) {
-		return userService.verifyUserByEmail(email);
-	}
-
-	@GetMapping("/verifyUserByEmail/{email:.+}")
-	public ResponseEntity<Boolean> verifyUserByEmail(@Valid @Email @PathVariable String email) {
-		return userService.verifyUserByEmail(email);
-	}
+//	@GetMapping("/verifyUser")
+//	public ResponseEntity<UserDTO> verifyUserById(@Valid @Email @RequestParam String email) {
+//		return userService.verifyUserByEmail(email);
+//	}
+//
+//	@GetMapping("/verifyUserByEmail/{email:.+}")
+//	public ResponseEntity<UserDTO> verifyUserByEmail(@Valid @Email @PathVariable String email) {
+//		return userService.verifyUserByEmail(email);
+//	}
 }
