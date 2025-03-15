@@ -12,9 +12,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,10 +38,6 @@ public class UserEntity extends BaseEntity {
 
 	@Column(name = "full_name")
 	private String fullName;
-
-	@ManyToOne(targetEntity = GradeEntity.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "grade_id", nullable = true)
-	private GradeEntity grade;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender")

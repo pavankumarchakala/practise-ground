@@ -28,7 +28,7 @@ public class UserDTO extends BaseDTO {
 
 	private String fullName;
 
-	private GradeDTO grade;
+	private List<GradeDTO> grades;
 
 	private Gender gender;
 

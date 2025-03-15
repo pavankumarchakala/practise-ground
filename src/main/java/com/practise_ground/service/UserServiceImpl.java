@@ -9,12 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.practise_ground.dao.IGradeDAO;
 import com.practise_ground.dao.ISubjectDAO;
 import com.practise_ground.dao.IUserDAO;
+import com.practise_ground.dao.IUserGradeDAO;
 import com.practise_ground.dao.IUserSubjectDAO;
+import com.practise_ground.dto.GradeDTO;
 import com.practise_ground.dto.SubjectDTO;
 import com.practise_ground.dto.UserDTO;
 import com.practise_ground.entity.UserEntity;
+import com.practise_ground.entity.UserGradeEntity;
 import com.practise_ground.entity.UserSubjectEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.enums.UserRole;
@@ -31,7 +35,12 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements IUserService {
 
 	private final IUserDAO userDAO;
+
 	private final ISubjectDAO subjectDAO;
+
+	private final IGradeDAO gradeDAO;
+
+	private final IUserGradeDAO userGradeDAO;
 
 	private final IUserSubjectDAO userSubjectDAO;
 
@@ -75,6 +84,12 @@ public class UserServiceImpl implements IUserService {
 		UserEntity entity = modelMapper.map(userDTO, UserEntity.class);
 
 		UserEntity savedEntity = userDAO.save(entity);
+
+		userDTO.getGrades().parallelStream().forEach(item -> userGradeDAO.save(
+				UserGradeEntity.builder().grade(gradeDAO.findById(item.getId()).get()).user(savedEntity).build()));
+
+		userDTO.setGrades(userGradeDAO.findAllByUserIdAndStatus(userDTO.getId(), Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getGrade(), GradeDTO.class)).toList());
 
 		userDTO.getSubjects().parallelStream().forEach(item -> userSubjectDAO.save(UserSubjectEntity.builder()
 				.subject(subjectDAO.findById(item.getId()).get()).user(savedEntity).build()));
