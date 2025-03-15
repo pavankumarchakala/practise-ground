@@ -134,7 +134,6 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	@Transactional
 	public ResponseEntity<Boolean> verifyUserById(long userId) {
 
 		userDAO.findById(userId).orElseThrow(() -> PractiseGroundException.builder().message("No User Found !!")
@@ -144,7 +143,6 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	@Transactional
 	public ResponseEntity<Boolean> verifyUserByEmail(String email) {
 
 		userDAO.findByEmailAndStatus(email, Status.ACTIVE).orElseThrow(() -> PractiseGroundException.builder()
