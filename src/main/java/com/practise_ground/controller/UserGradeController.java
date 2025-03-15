@@ -41,7 +41,7 @@ public class UserGradeController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserGradeDTO> update(@Valid @Positive @PathVariable long id) {
+	public ResponseEntity<UserGradeDTO> findById(@Valid @Positive @PathVariable long id) {
 		return userGradeService.getById(id);
 	}
 

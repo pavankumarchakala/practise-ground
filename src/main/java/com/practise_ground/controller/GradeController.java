@@ -39,7 +39,7 @@ public class GradeController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<GradeDTO> update(@PathVariable long id) {
+	public ResponseEntity<GradeDTO> findById(@PathVariable long id) {
 		return gradeService.getById(id);
 	}
 

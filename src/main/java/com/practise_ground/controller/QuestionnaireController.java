@@ -39,7 +39,7 @@ public class QuestionnaireController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<QuestionnaireDTO> update(@PathVariable long id) {
+	public ResponseEntity<QuestionnaireDTO> findById(@PathVariable long id) {
 		return questionnaireService.getById(id);
 	}
 

@@ -41,7 +41,7 @@ public class UserSubjectController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserSubjectDTO> update(@Valid @Positive @PathVariable long id) {
+	public ResponseEntity<UserSubjectDTO> findById(@Valid @Positive @PathVariable long id) {
 		return userSubjectService.getById(id);
 	}
 

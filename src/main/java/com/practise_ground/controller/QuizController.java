@@ -39,7 +39,7 @@ public class QuizController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<QuizDTO> update(@PathVariable long id) {
+	public ResponseEntity<QuizDTO> findById(@PathVariable long id) {
 		return quizService.getById(id);
 	}
 

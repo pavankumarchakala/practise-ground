@@ -39,7 +39,7 @@ public class PractiseGroundWeekController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<PractiseGroundWeekDTO> update(@PathVariable long id) {
+	public ResponseEntity<PractiseGroundWeekDTO> findById(@PathVariable long id) {
 		return practiseGroundWeekService.getById(id);
 	}
 

@@ -60,12 +60,12 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> update(@Valid @Positive @PathVariable long id) {
+	public ResponseEntity<UserDTO> findById(@Valid @Positive @PathVariable long id) {
 		return userService.getById(id);
 	}
 
 	@GetMapping
-	public ResponseEntity<UserDTO> update(@Valid @Email @RequestParam String email) {
+	public ResponseEntity<UserDTO> findByEmail(@Valid @Email @RequestParam String email) {
 		return userService.getByEmail(email);
 	}
 

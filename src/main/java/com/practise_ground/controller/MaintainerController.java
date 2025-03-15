@@ -53,7 +53,7 @@ public class MaintainerController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable long id) {
+	public ResponseEntity<UserDTO> findById(@PathVariable long id) {
 		return userService.getById(id);
 	}
 
