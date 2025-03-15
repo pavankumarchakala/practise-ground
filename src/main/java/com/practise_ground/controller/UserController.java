@@ -19,6 +19,7 @@ import com.practise_ground.service.IUserService;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 
@@ -73,7 +74,12 @@ public class UserController {
 	}
 
 	@GetMapping("/allByRole/{role}")
-	public ResponseEntity<List<UserDTO>> findAllByRole(@PathVariable String role) {
+	public ResponseEntity<List<UserDTO>> findAllByRole(@Valid @NotBlank @PathVariable String role) {
 		return userService.findAllByRole(UserRole.getValueOf(role));
+	}
+
+	@GetMapping("/verifyUser/{id}")
+	public ResponseEntity<Boolean> findAllByRole(@Valid @Positive @PathVariable long id) {
+		return userService.verifyUser(id);
 	}
 }

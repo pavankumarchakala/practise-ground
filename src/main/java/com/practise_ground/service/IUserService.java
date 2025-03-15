@@ -17,12 +17,14 @@ public interface IUserService {
 
 	ResponseEntity<UserDTO> update(UserDTO user);
 
-	ResponseEntity<UserDTO> getById(long id);
+	ResponseEntity<UserDTO> getById(long userId);
 
-	ResponseEntity<Boolean> delete(long id);
+	ResponseEntity<Boolean> delete(long userId);
 
 	ResponseEntity<List<UserDTO>> findAll();
 
 	ResponseEntity<List<UserDTO>> findAllByRole(UserRole role);
+
+	ResponseEntity<Boolean> verifyUser(long userId);
 
 }

@@ -8,9 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.practise_ground.dao.ISubjectDAO;
 import com.practise_ground.dao.IUserDAO;
+import com.practise_ground.dao.IUserSubjectDAO;
+import com.practise_ground.dto.SubjectDTO;
 import com.practise_ground.dto.UserDTO;
 import com.practise_ground.entity.UserEntity;
+import com.practise_ground.entity.UserSubjectEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.enums.UserRole;
 import com.practise_ground.exceptions.PractiseGroundException;
@@ -26,6 +30,9 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements IUserService {
 
 	private final IUserDAO userDAO;
+	private final ISubjectDAO subjectDAO;
+
+	private final IUserSubjectDAO userSubjectDAO;
 
 	private final ModelMapper modelMapper = new ModelMapper();
 
@@ -37,7 +44,12 @@ public class UserServiceImpl implements IUserService {
 
 		UserEntity savedEntity = userDAO.save(entity);
 
-		userDTO.setId(savedEntity.getId());
+		long userId = savedEntity.getId();
+
+		userDTO.setId(userId);
+
+		userDTO.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
 
 		return ResponseEntity.ok(userDTO);
 	}
@@ -50,16 +62,25 @@ public class UserServiceImpl implements IUserService {
 
 		UserEntity savedEntity = userDAO.save(entity);
 
-		return ResponseEntity.ok(modelMapper.map(savedEntity, UserDTO.class));
+		userDTO.getSubjects().parallelStream().forEach(item -> userSubjectDAO.save(UserSubjectEntity.builder()
+				.subject(subjectDAO.findById(item.getId()).get()).user(savedEntity).build()));
+
+		userDTO.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(userDTO.getId(), Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
+
+		return ResponseEntity.ok(userDTO);
 	}
 
 	@Override
-	public ResponseEntity<UserDTO> getById(long id) {
+	public ResponseEntity<UserDTO> getById(long userId) {
 
-		UserEntity entity = userDAO.findById(id).orElseThrow(() -> PractiseGroundException.builder()
+		UserEntity entity = userDAO.findById(userId).orElseThrow(() -> PractiseGroundException.builder()
 				.message("No User Found !!").httpStatus(HttpStatus.NOT_FOUND).build());
 
 		UserDTO dto = modelMapper.map(entity, UserDTO.class);
+
+		dto.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
+				.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
 
 		return ResponseEntity.ok(dto);
 	}
@@ -79,17 +100,35 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public ResponseEntity<List<UserDTO>> findAll() {
 
-		return ResponseEntity.ok(userDAO.findAllByStatus(Status.ACTIVE).parallelStream()
-				.map(entity -> modelMapper.map(entity, UserDTO.class)).toList());
+		return ResponseEntity.ok(userDAO.findAllByStatus(Status.ACTIVE).parallelStream().map(entity -> {
+			UserDTO dto = modelMapper.map(entity, UserDTO.class);
+			dto.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(dto.getId(), Status.ACTIVE).parallelStream()
+					.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
+			return dto;
+		}).toList());
 
 	}
 
 	@Override
 	public ResponseEntity<List<UserDTO>> findAllByRole(UserRole role) {
 
-		return ResponseEntity.ok(userDAO.findAllByRoleAndStatus(role, Status.ACTIVE).parallelStream()
-				.map(entity -> modelMapper.map(entity, UserDTO.class)).toList());
+		return ResponseEntity.ok(userDAO.findAllByRoleAndStatus(role, Status.ACTIVE).parallelStream().map(entity -> {
+			UserDTO dto = modelMapper.map(entity, UserDTO.class);
+			dto.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(dto.getId(), Status.ACTIVE).parallelStream()
+					.map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
+			return dto;
+		}).toList());
 
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Boolean> verifyUser(long userId) {
+
+		userDAO.findById(userId).orElseThrow(() -> PractiseGroundException.builder().message("No User Found !!")
+				.httpStatus(HttpStatus.NOT_FOUND).build()).setEmailVerified(true);
+
+		return ResponseEntity.ok(true);
 	}
 
 }

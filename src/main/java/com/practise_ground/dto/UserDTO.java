@@ -1,6 +1,7 @@
 package com.practise_ground.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.practise_ground.enums.Gender;
 import com.practise_ground.enums.UserRole;
@@ -48,5 +49,7 @@ public class UserDTO extends BaseDTO {
 	private String school;
 
 	private String postalCode;
+
+	private List<SubjectDTO> subjects;
 
 }

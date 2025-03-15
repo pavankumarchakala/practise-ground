@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.practise_ground.dao.IGradeDAO;
+import com.practise_ground.dao.IGradeSubjectDAO;
+import com.practise_ground.dao.ISubjectDAO;
 import com.practise_ground.dto.GradeDTO;
 import com.practise_ground.entity.GradeEntity;
+import com.practise_ground.entity.GradeSubjectEntity;
+import com.practise_ground.entity.SubjectEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.exceptions.PractiseGroundException;
 
@@ -26,6 +30,10 @@ public class GradeServiceImpl implements IGradeService {
 
 	private final IGradeDAO gradeDAO;
 
+	private final ISubjectDAO subjectDAO;
+
+	private final IGradeSubjectDAO gradeSubjectDAO;
+
 	private final ModelMapper modelMapper = new ModelMapper();
 
 	@Override
@@ -34,9 +42,13 @@ public class GradeServiceImpl implements IGradeService {
 
 		GradeEntity entity = modelMapper.map(gradeDTO, GradeEntity.class);
 
-		GradeEntity savedEntity = gradeDAO.save(entity);
+		GradeEntity savedGradeEntity = gradeDAO.save(entity);
 
-		gradeDTO.setId(savedEntity.getId());
+		SubjectEntity savedSubjectEntity = subjectDAO.save(SubjectEntity.builder().name("English").build());
+
+		gradeSubjectDAO.save(GradeSubjectEntity.builder().grade(savedGradeEntity).subject(savedSubjectEntity).build());
+
+		gradeDTO.setId(savedGradeEntity.getId());
 
 		return ResponseEntity.ok(gradeDTO);
 	}
