@@ -83,7 +83,7 @@ public class UserController {
 		return userService.verifyUserById(id);
 	}
 
-	@GetMapping("/verifyUser/{email}")
+	@GetMapping("/verifyUser/{email:.+}")
 	public ResponseEntity<Boolean> verifyUserByEmail(@Valid @Positive @PathVariable String email) {
 		return userService.verifyUserByEmail(email);
 	}
