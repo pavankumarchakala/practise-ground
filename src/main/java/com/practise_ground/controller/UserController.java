@@ -64,7 +64,7 @@ public class UserController {
 		return userService.getById(id);
 	}
 
-	@GetMapping("/{email:.+}")
+	@GetMapping
 	public ResponseEntity<UserDTO> update(@Valid @Email @RequestParam String email) {
 		return userService.getByEmail(email);
 	}
