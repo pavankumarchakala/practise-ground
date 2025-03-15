@@ -1,8 +1,11 @@
 package com.practise_ground.service;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 import com.practise_ground.dto.GradeSubjectDTO;
+import com.practise_ground.dto.SubjectDTO;
 
 /**
  * @author Pavankumar - created date : Mar 15, 2025
@@ -18,5 +21,6 @@ public interface IGradeSubjectService {
 
 	ResponseEntity<Boolean> delete(long id);
 
-//	ResponseEntity<List<GradeSubjectDTO>> findAll();
+	ResponseEntity<List<SubjectDTO>> findAllSubjectsByGrade(long gradeId);
+
 }

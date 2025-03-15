@@ -1,5 +1,7 @@
 package com.practise_ground.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practise_ground.dto.GradeSubjectDTO;
+import com.practise_ground.dto.SubjectDTO;
 import com.practise_ground.service.IGradeSubjectService;
 
 import lombok.AllArgsConstructor;
@@ -46,9 +49,9 @@ public class GradeSubjectController {
 		return gradeSubjectService.delete(id);
 	}
 
-//	@GetMapping("/all")
-//	public ResponseEntity<List<GradeSubjectDTO>> findAll() {
-//		return gradeSubjectService.findAll();
-//	}
+	@GetMapping("/allSubjectsByGrade/{gradeId}")
+	public ResponseEntity<List<SubjectDTO>> findAllSubjectsByGrade(@PathVariable long gradeId) {
+		return gradeSubjectService.findAllSubjectsByGrade(gradeId);
+	}
 
 }

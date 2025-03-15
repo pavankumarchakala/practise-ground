@@ -1,5 +1,7 @@
 package com.practise_ground.service;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.practise_ground.dao.IGradeSubjectDAO;
 import com.practise_ground.dto.GradeSubjectDTO;
+import com.practise_ground.dto.SubjectDTO;
 import com.practise_ground.entity.GradeSubjectEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.exceptions.PractiseGroundException;
@@ -75,11 +78,11 @@ public class GradeSubjectServiceImpl implements IGradeSubjectService {
 		return ResponseEntity.ok(true);
 	}
 
-//	@Override
-//	public ResponseEntity<List<GradeSubjectDTO>> findAll() {
-//
-//		return ResponseEntity.ok(gradeSubjectDAO.findAllByStatus(Status.ACTIVE).parallelStream()
-//				.map(entity -> modelMapper.map(entity, GradeSubjectDTO.class)).toList());
-//
-//	}
+	@Override
+	public ResponseEntity<List<SubjectDTO>> findAllSubjectsByGrade(long gradeId) {
+
+		return ResponseEntity.ok(gradeSubjectDAO.findAllByGradeId(gradeId).parallelStream()
+				.map(entity -> modelMapper.map(entity, SubjectDTO.class)).toList());
+
+	}
 }

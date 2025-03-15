@@ -1,5 +1,9 @@
 package com.practise_ground.dao;
 
+import java.util.List;
+
+import javax.security.auth.Subject;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +15,7 @@ import com.practise_ground.entity.GradeSubjectEntity;
  */
 @Repository
 public interface IGradeSubjectDAO extends JpaRepository<GradeSubjectEntity, Long> {
+
+	List<Subject> findAllByGradeId(long gradeId);
 
 }
