@@ -41,8 +41,13 @@ public class SubjectController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<SubjectDTO> update(@Valid @Positive @PathVariable long id) {
+	public ResponseEntity<SubjectDTO> findById(@Valid @Positive @PathVariable long id) {
 		return subjectService.getById(id);
+	}
+
+	@GetMapping
+	public ResponseEntity<SubjectDTO> findDefaultSubject() {
+		return subjectService.findDefaultSubject();
 	}
 
 	@DeleteMapping("/{id}")

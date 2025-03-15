@@ -44,7 +44,8 @@ public class GradeServiceImpl implements IGradeService {
 
 		GradeEntity savedGradeEntity = gradeDAO.save(entity);
 
-		SubjectEntity savedSubjectEntity = subjectDAO.save(SubjectEntity.builder().name("English").build());
+		SubjectEntity savedSubjectEntity = subjectDAO
+				.save(SubjectEntity.builder().name("English").isDefault(true).build());
 
 		gradeSubjectDAO.save(GradeSubjectEntity.builder().grade(savedGradeEntity).subject(savedSubjectEntity).build());
 

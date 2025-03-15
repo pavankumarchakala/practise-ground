@@ -23,4 +23,6 @@ public class SubjectDTO extends BaseDTO {
 	@NotEmpty(message = "Subject name must not be empty !!!")
 	private String name;
 
+	private boolean isDefault;
+
 }

@@ -1,6 +1,7 @@
 package com.practise_ground.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,5 +19,7 @@ public interface ISubjectDAO extends JpaRepository<SubjectEntity, Long> {
 	List<SubjectEntity> findAllByStatus(Status active);
 
 	SubjectEntity findByName(String name);
+
+	Optional<SubjectEntity> findByIsDefault(boolean isDefault);
 
 }

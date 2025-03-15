@@ -50,6 +50,8 @@ public class UserServiceImpl implements IUserService {
 			userDTO.setSubjects(userSubjectDAO.findAllByUserIdAndStatus(userEntity.getId(), Status.ACTIVE)
 					.parallelStream().map(item -> modelMapper.map(item.getSubject(), SubjectDTO.class)).toList());
 
+			return ResponseEntity.ok(userDTO);
+
 		}
 
 		UserEntity entity = modelMapper.map(userDTO, UserEntity.class);

@@ -32,4 +32,7 @@ public class SubjectEntity extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "is_default", columnDefinition = "tinyint(1) default 0")
+	private boolean isDefault;
+
 }

@@ -22,4 +22,6 @@ public interface ISubjectService {
 
 	ResponseEntity<List<SubjectDTO>> findAll();
 
+	ResponseEntity<SubjectDTO> findDefaultSubject();
+
 }

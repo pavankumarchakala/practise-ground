@@ -66,6 +66,17 @@ public class SubjectServiceImpl implements ISubjectService {
 	}
 
 	@Override
+	public ResponseEntity<SubjectDTO> findDefaultSubject() {
+
+		SubjectEntity entity = subjectDAO.findByIsDefault(true).orElseThrow(() -> PractiseGroundException.builder()
+				.message("No Default Subject Found !!").httpStatus(HttpStatus.NOT_FOUND).build());
+
+		SubjectDTO dto = modelMapper.map(entity, SubjectDTO.class);
+
+		return ResponseEntity.ok(dto);
+	}
+
+	@Override
 	@Transactional
 	public ResponseEntity<Boolean> delete(long id) {
 
