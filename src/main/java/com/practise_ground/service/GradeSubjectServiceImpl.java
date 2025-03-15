@@ -82,7 +82,7 @@ public class GradeSubjectServiceImpl implements IGradeSubjectService {
 	public ResponseEntity<List<SubjectDTO>> findAllSubjectsByGrade(long gradeId) {
 
 		return ResponseEntity.ok(gradeSubjectDAO.findAllByGradeId(gradeId).parallelStream()
-				.map(entity -> modelMapper.map(entity, SubjectDTO.class)).toList());
+				.map(entity -> modelMapper.map(entity.getSubject(), SubjectDTO.class)).toList());
 
 	}
 }
