@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practise_ground.dto.UserDTO;
@@ -19,6 +20,7 @@ import com.practise_ground.service.IUserService;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -83,8 +85,13 @@ public class UserController {
 		return userService.verifyUserById(id);
 	}
 
-	@GetMapping("/verifyUser/{email:.+}")
-	public ResponseEntity<Boolean> verifyUserByEmail(@Valid @Positive @PathVariable String email) {
+	@GetMapping("/verifyUser")
+	public ResponseEntity<Boolean> verifyUserById(@Valid @Email @RequestParam String email) {
+		return userService.verifyUserByEmail(email);
+	}
+
+	@GetMapping("/verifyUserByEmail/{email:.+}")
+	public ResponseEntity<Boolean> verifyUserByEmail(@Valid @Email @PathVariable String email) {
 		return userService.verifyUserByEmail(email);
 	}
 }
