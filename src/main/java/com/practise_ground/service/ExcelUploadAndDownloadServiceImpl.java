@@ -1,6 +1,7 @@
 package com.practise_ground.service;
 
 import java.io.InputStream;
+import java.util.StringJoiner;
 import java.util.stream.IntStream;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -171,6 +172,26 @@ public class ExcelUploadAndDownloadServiceImpl implements IExcelUploadAndDownloa
 				.toArray(String[]::new);
 		String[] years = practiseGroundYearDAO.findByStatus(Status.ACTIVE).parallelStream().map(item -> item.getName())
 				.toArray(String[]::new);
+
+		if (grades.length == 0 || subjects.length == 0 || weeks.length == 0 || years.length == 0) {
+
+			StringJoiner sj = new StringJoiner(",");
+
+			if (grades.length == 0)
+				sj.add("Grades");
+			if (subjects.length == 0)
+				sj.add("Subjects");
+			if (weeks.length == 0)
+				sj.add("PlayGround Academic Weeks");
+			if (years.length == 0)
+				sj.add("PlayGround Academic Years");
+
+			sj.add(" cannot be empty !!!");
+
+			workbook.close();
+
+			throw new PractiseGroundException(sj.toString(), HttpStatus.BAD_REQUEST);
+		}
 
 		DataValidationHelper validationHelper = new XSSFDataValidationHelper(sheet);
 

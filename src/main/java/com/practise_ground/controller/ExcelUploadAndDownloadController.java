@@ -33,7 +33,7 @@ public class ExcelUploadAndDownloadController {
 
 	}
 
-	@GetMapping(value = "/downloadQuizQuestionnaireTemplate", produces = "multipart/form-data")
+	@GetMapping(value = "/downloadQuizQuestionnaireTemplate")
 	public ResponseEntity<byte[]> downloadQuizQuestionnaireTemplate() throws Exception {
 
 		byte[] excelBytes = excelUploadAndDownloadService.generateQuizQuestionnaireTemplate().toByteArray();
