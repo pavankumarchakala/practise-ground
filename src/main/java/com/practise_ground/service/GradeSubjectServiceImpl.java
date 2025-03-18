@@ -13,6 +13,7 @@ import com.practise_ground.dao.IGradeSubjectDAO;
 import com.practise_ground.dto.GradeSubjectDTO;
 import com.practise_ground.dto.SubjectDTO;
 import com.practise_ground.entity.GradeSubjectEntity;
+import com.practise_ground.entity.SubjectEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.exceptions.PractiseGroundException;
 
@@ -89,8 +90,18 @@ public class GradeSubjectServiceImpl implements IGradeSubjectService {
 	public ResponseEntity<List<SubjectDTO>> findAllSubjectsByGrade(long gradeId) {
 		List<GradeSubjectEntity> gradeSubjectEntities = gradeSubjectDAO.findAllByGradeId(gradeId);
 
-		List<SubjectDTO> subjects = gradeSubjectEntities.parallelStream()
-				.map(entity -> modelMapper.map(entity.getSubject(), SubjectDTO.class)).toList();
+		List<SubjectDTO> subjects = gradeSubjectEntities.parallelStream().map(entity -> {
+
+			SubjectEntity subject = entity.getSubject();
+
+			SubjectDTO subjectDTO = new SubjectDTO();
+			subjectDTO.setId(subject.getId());
+			subjectDTO.setName(subject.getName());
+			subjectDTO.setDefault(subject.isDefault());
+
+			return subjectDTO;
+
+		}).toList();
 
 		return ResponseEntity.ok(subjects);
 
