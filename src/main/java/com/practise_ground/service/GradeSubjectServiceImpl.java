@@ -2,6 +2,7 @@ package com.practise_ground.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,12 @@ public class GradeSubjectServiceImpl implements IGradeSubjectService {
 	@Override
 	@Transactional
 	public ResponseEntity<GradeSubjectDTO> create(GradeSubjectDTO gradeSubjectDTO) {
+
+		GradeSubjectEntity gradeSubjectEntity = gradeSubjectDAO
+				.findByGradeIdAndSubjectId(gradeSubjectDTO.getGrade().getId(), gradeSubjectDTO.getSubject().getId());
+
+		if (!ObjectUtils.isEmpty(gradeSubjectEntity))
+			return ResponseEntity.ok(modelMapper.map(gradeSubjectEntity, GradeSubjectDTO.class));
 
 		GradeSubjectEntity entity = modelMapper.map(gradeSubjectDTO, GradeSubjectEntity.class);
 

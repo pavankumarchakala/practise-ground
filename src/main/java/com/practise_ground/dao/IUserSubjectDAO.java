@@ -23,4 +23,6 @@ public interface IUserSubjectDAO extends JpaRepository<UserSubjectEntity, Long> 
 
 	void deleteAllByUserId(long userId);
 
+	UserSubjectEntity findByUserIdAndSubjectId(long userId, long subjectId);
+
 }

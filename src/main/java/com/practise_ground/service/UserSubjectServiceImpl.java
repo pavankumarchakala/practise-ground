@@ -2,6 +2,7 @@ package com.practise_ground.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,12 @@ public class UserSubjectServiceImpl implements IUserSubjectService {
 	@Override
 	@Transactional
 	public ResponseEntity<UserSubjectDTO> create(UserSubjectDTO userSubjectDTO) {
+
+		UserSubjectEntity userSubjectEntity = userSubjectDAO
+				.findByUserIdAndSubjectId(userSubjectDTO.getSubject().getId(), userSubjectDTO.getSubject().getId());
+
+		if (!ObjectUtils.isEmpty(userSubjectEntity))
+			return ResponseEntity.ok(modelMapper.map(userSubjectEntity, UserSubjectDTO.class));
 
 		UserSubjectEntity entity = modelMapper.map(userSubjectDTO, UserSubjectEntity.class);
 
