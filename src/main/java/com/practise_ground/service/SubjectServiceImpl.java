@@ -2,6 +2,7 @@ package com.practise_ground.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,11 @@ public class SubjectServiceImpl implements ISubjectService {
 	@Transactional
 	public ResponseEntity<SubjectDTO> create(SubjectDTO subjectDTO) {
 
+		SubjectEntity subjectEntity = subjectDAO.findByName(subjectDTO.getName());
+
+		if (!ObjectUtils.isEmpty(subjectEntity))
+			return ResponseEntity.ok(modelMapper.map(subjectEntity, SubjectDTO.class));
+
 		SubjectEntity entity = modelMapper.map(subjectDTO, SubjectEntity.class);
 
 		SubjectEntity savedEntity = subjectDAO.save(entity);
@@ -44,6 +50,11 @@ public class SubjectServiceImpl implements ISubjectService {
 	@Override
 	@Transactional
 	public ResponseEntity<SubjectDTO> update(SubjectDTO subjectDTO) {
+
+		SubjectEntity subjectEntity = subjectDAO.findByName(subjectDTO.getName());
+
+		if (!ObjectUtils.isEmpty(subjectEntity))
+			return ResponseEntity.ok(modelMapper.map(subjectEntity, SubjectDTO.class));
 
 		SubjectEntity entity = modelMapper.map(subjectDTO, SubjectEntity.class);
 

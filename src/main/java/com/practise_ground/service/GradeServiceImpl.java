@@ -2,6 +2,7 @@ package com.practise_ground.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,14 +41,23 @@ public class GradeServiceImpl implements IGradeService {
 	@Transactional
 	public ResponseEntity<GradeDTO> create(GradeDTO gradeDTO) {
 
+		GradeEntity gradeEntity = gradeDAO.findByName(gradeDTO.getName());
+
+		if (!ObjectUtils.isEmpty(gradeEntity))
+			return ResponseEntity.ok(modelMapper.map(gradeEntity, GradeDTO.class));
+
 		GradeEntity entity = modelMapper.map(gradeDTO, GradeEntity.class);
 
 		GradeEntity savedGradeEntity = gradeDAO.save(entity);
 
-		SubjectEntity savedSubjectEntity = subjectDAO
-				.save(SubjectEntity.builder().name("English").isDefault(true).build());
+		SubjectEntity englishSubject = subjectDAO.findByName("English");
 
-		gradeSubjectDAO.save(GradeSubjectEntity.builder().grade(savedGradeEntity).subject(savedSubjectEntity).build());
+		if (ObjectUtils.isEmpty(englishSubject)) {
+
+			englishSubject = subjectDAO.save(SubjectEntity.builder().name("English").isDefault(true).build());
+		}
+
+		gradeSubjectDAO.save(GradeSubjectEntity.builder().grade(savedGradeEntity).subject(englishSubject).build());
 
 		gradeDTO.setId(savedGradeEntity.getId());
 
