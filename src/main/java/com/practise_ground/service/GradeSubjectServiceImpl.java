@@ -87,9 +87,12 @@ public class GradeSubjectServiceImpl implements IGradeSubjectService {
 
 	@Override
 	public ResponseEntity<List<SubjectDTO>> findAllSubjectsByGrade(long gradeId) {
+		List<GradeSubjectEntity> gradeSubjectEntities = gradeSubjectDAO.findAllByGradeId(gradeId);
 
-		return ResponseEntity.ok(gradeSubjectDAO.findAllByGradeId(gradeId).parallelStream()
-				.map(entity -> modelMapper.map(entity.getSubject(), SubjectDTO.class)).toList());
+		List<SubjectDTO> subjects = gradeSubjectEntities.parallelStream()
+				.map(entity -> modelMapper.map(entity.getSubject(), SubjectDTO.class)).toList();
+
+		return ResponseEntity.ok(subjects);
 
 	}
 }
