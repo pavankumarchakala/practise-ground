@@ -33,8 +33,8 @@ public class UserSubjectServiceImpl implements IUserSubjectService {
 	@Transactional
 	public ResponseEntity<UserSubjectDTO> create(UserSubjectDTO userSubjectDTO) {
 
-		UserSubjectEntity userSubjectEntity = userSubjectDAO
-				.findByUserIdAndSubjectId(userSubjectDTO.getSubject().getId(), userSubjectDTO.getSubject().getId());
+		UserSubjectEntity userSubjectEntity = userSubjectDAO.findByUserIdAndSubjectId(userSubjectDTO.getUser().getId(),
+				userSubjectDTO.getSubject().getId());
 
 		if (!ObjectUtils.isEmpty(userSubjectEntity))
 			return ResponseEntity.ok(modelMapper.map(userSubjectEntity, UserSubjectDTO.class));

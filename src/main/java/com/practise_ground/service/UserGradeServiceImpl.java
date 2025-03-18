@@ -2,6 +2,7 @@ package com.practise_ground.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,12 @@ public class UserGradeServiceImpl implements IUserGradeService {
 	@Override
 	@Transactional
 	public ResponseEntity<UserGradeDTO> create(UserGradeDTO userGradeDTO) {
+
+		UserGradeEntity userGradeEntity = userGradeDAO.findByUserIdAndGradeId(userGradeDTO.getUser().getId(),
+				userGradeDTO.getGrade().getId());
+
+		if (!ObjectUtils.isEmpty(userGradeEntity))
+			return ResponseEntity.ok(modelMapper.map(userGradeEntity, UserGradeDTO.class));
 
 		UserGradeEntity entity = modelMapper.map(userGradeDTO, UserGradeEntity.class);
 

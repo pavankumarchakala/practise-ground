@@ -21,4 +21,6 @@ public interface IUserGradeDAO extends JpaRepository<UserGradeEntity, Long> {
 
 	void deleteAllByUserId(long userId);
 
+	UserGradeEntity findByUserIdAndGradeId(long userId, long gradeId);
+
 }
