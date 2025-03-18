@@ -50,7 +50,7 @@ public class QuestionnaireEntity extends BaseEntity {
 	@Column(name = "answer")
 	private String answer;
 
-	@ManyToOne(targetEntity = QuizEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = QuizEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "quiz_id", nullable = false, unique = false)
 	private QuizEntity quiz;
 

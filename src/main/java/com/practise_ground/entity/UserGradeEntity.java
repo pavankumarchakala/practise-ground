@@ -31,11 +31,11 @@ public class UserGradeEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 7907211550994971606L;
 
-	@ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = true)
 	private UserEntity user;
 
-	@ManyToOne(targetEntity = GradeEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = GradeEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "grade_id", nullable = true)
 	private GradeEntity grade;
 

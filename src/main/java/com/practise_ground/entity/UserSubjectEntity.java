@@ -31,11 +31,11 @@ public class UserSubjectEntity extends BaseEntity {
 
 	private static final long serialVersionUID = -5584520292027822225L;
 
-	@ManyToOne(targetEntity = SubjectEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = SubjectEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "subject_id", nullable = false, unique = false)
 	private SubjectEntity subject;
 
-	@ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false, unique = false)
 	private UserEntity user;
 

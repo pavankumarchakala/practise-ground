@@ -35,19 +35,19 @@ public class QuizEntity extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToOne(targetEntity = SubjectEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = SubjectEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "subject_id", nullable = false, unique = false)
 	private SubjectEntity subject;
 
-	@ManyToOne(targetEntity = GradeEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = GradeEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "grade_id", nullable = false, unique = false)
 	private GradeEntity grade;
 
-	@ManyToOne(targetEntity = PractiseGroundWeekEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = PractiseGroundWeekEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "week_id", nullable = false, unique = false)
 	private PractiseGroundWeekEntity week;
 
-	@ManyToOne(targetEntity = PractiseGroundYearEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = PractiseGroundYearEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "year_id", nullable = false, unique = false)
 	private PractiseGroundYearEntity year;
 
