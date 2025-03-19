@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.practise_ground.dao.IUserSubjectDAO;
+import com.practise_ground.dto.SubjectDTO;
+import com.practise_ground.dto.UserDTO;
 import com.practise_ground.dto.UserSubjectDTO;
 import com.practise_ground.entity.UserSubjectEntity;
 import com.practise_ground.enums.Status;
@@ -85,18 +87,18 @@ public class UserSubjectServiceImpl implements IUserSubjectService {
 	}
 
 	@Override
-	public ResponseEntity<List<UserSubjectDTO>> findAllByUser(long userId) {
+	public ResponseEntity<List<SubjectDTO>> findAllByUser(long userId) {
 
 		return ResponseEntity.ok(userSubjectDAO.findByUserIdAndStatus(userId, Status.ACTIVE).parallelStream()
-				.map(entity -> modelMapper.map(entity, UserSubjectDTO.class)).toList());
+				.map(entity -> modelMapper.map(entity.getSubject(), SubjectDTO.class)).toList());
 
 	}
 
 	@Override
-	public ResponseEntity<List<UserSubjectDTO>> findAllBySubject(long subjectId) {
+	public ResponseEntity<List<UserDTO>> findAllBySubject(long subjectId) {
 
 		return ResponseEntity.ok(userSubjectDAO.findBySubjectIdAndStatus(subjectId, Status.ACTIVE).parallelStream()
-				.map(entity -> modelMapper.map(entity, UserSubjectDTO.class)).toList());
+				.map(entity -> modelMapper.map(entity.getUser(), UserDTO.class)).toList());
 
 	}
 

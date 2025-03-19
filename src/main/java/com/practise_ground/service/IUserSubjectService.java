@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.practise_ground.dto.SubjectDTO;
+import com.practise_ground.dto.UserDTO;
 import com.practise_ground.dto.UserSubjectDTO;
 
 /**
@@ -20,8 +22,8 @@ public interface IUserSubjectService {
 
 	ResponseEntity<Boolean> delete(long id);
 
-	ResponseEntity<List<UserSubjectDTO>> findAllByUser(long userId);
+	ResponseEntity<List<SubjectDTO>> findAllByUser(long userId);
 
-	ResponseEntity<List<UserSubjectDTO>> findAllBySubject(long subjectId);
+	ResponseEntity<List<UserDTO>> findAllBySubject(long subjectId);
 
 }

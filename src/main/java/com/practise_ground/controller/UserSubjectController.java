@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practise_ground.dto.SubjectDTO;
+import com.practise_ground.dto.UserDTO;
 import com.practise_ground.dto.UserSubjectDTO;
 import com.practise_ground.service.IUserSubjectService;
 
@@ -51,12 +53,12 @@ public class UserSubjectController {
 	}
 
 	@GetMapping("/allbyuser/{userId}")
-	public ResponseEntity<List<UserSubjectDTO>> findAllByUser(@PathVariable long userId) {
+	public ResponseEntity<List<SubjectDTO>> findAllByUser(@PathVariable long userId) {
 		return userSubjectService.findAllByUser(userId);
 	}
 
 	@GetMapping("/allbysubject/{subjectId}")
-	public ResponseEntity<List<UserSubjectDTO>> findAllBySubject(@PathVariable long subjectId) {
+	public ResponseEntity<List<UserDTO>> findAllBySubject(@PathVariable long subjectId) {
 		return userSubjectService.findAllBySubject(subjectId);
 	}
 
