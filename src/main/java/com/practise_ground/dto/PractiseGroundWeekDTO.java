@@ -1,5 +1,9 @@
 package com.practise_ground.dto;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,5 +26,11 @@ public class PractiseGroundWeekDTO extends BaseDTO {
 
 	@NotEmpty(message = "Week name must not be empty !!!")
 	private String name;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate startDate;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate endDate;
 
 }

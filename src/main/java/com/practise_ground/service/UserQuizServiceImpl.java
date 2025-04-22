@@ -1,5 +1,6 @@
 package com.practise_ground.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -7,9 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
+import com.practise_ground.dao.IPractiseGroundYearDAO;
+import com.practise_ground.dao.IQuizDAO;
 import com.practise_ground.dao.IUserQuizDAO;
+import com.practise_ground.dto.QuizDTO;
+import com.practise_ground.dto.UserDTO;
 import com.practise_ground.dto.UserQuizDTO;
+import com.practise_ground.entity.PractiseGroundYearEntity;
 import com.practise_ground.entity.UserQuizEntity;
 import com.practise_ground.enums.Status;
 import com.practise_ground.exceptions.PractiseGroundException;
@@ -23,6 +30,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserQuizServiceImpl implements IUserQuizService {
+
+	private final IPractiseGroundYearDAO yearDAO;
+
+	private final IQuizDAO quizDAO;
 
 	private final IUserQuizDAO userQuizDAO;
 
@@ -91,6 +102,35 @@ public class UserQuizServiceImpl implements IUserQuizService {
 		return ResponseEntity.ok(userQuizDAO.findByQuizIdAndStatus(quizId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, UserQuizDTO.class)).toList());
 
+	}
+
+	@Override
+	public ResponseEntity<List<UserQuizDTO>> findAllUserQuizByUserSubjectGradeCurrentDate(long subjectId, long gradeId,
+			long userId) {
+
+		Date currDate = new Date();
+
+		PractiseGroundYearEntity year = yearDAO.findByCurrDate(currDate);
+
+		return ResponseEntity.ok(quizDAO
+				.findByGradeIdAndSubjectIdAndYearIdAndWeekEndDateBefore(gradeId, subjectId, year.getId(), currDate)
+				.parallelStream().map(quiz -> {
+
+					long quizId = quiz.getId();
+
+					UserQuizEntity userQuiz = userQuizDAO.findByUserIdAndQuizIdAndStatus(userId, quizId, Status.ACTIVE);
+
+					UserDTO userDTO = new UserDTO();
+					userDTO.setId(userId);
+
+					QuizDTO quizDTO = new QuizDTO();
+					quizDTO.setId(quizId);
+
+					return UserQuizDTO.builder().quiz(quizDTO)
+							.score(ObjectUtils.isEmpty(userQuiz) ? null : userQuiz.getScore()).user(userDTO)
+							.quizQA(ObjectUtils.isEmpty(userQuiz) ? null : userQuiz.getQuizQA()).build();
+
+				}).toList());
 	}
 
 }

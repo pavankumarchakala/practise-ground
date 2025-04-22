@@ -20,4 +20,6 @@ public interface IUserQuizDAO extends JpaRepository<UserQuizEntity, Long> {
 	List<UserQuizEntity> findByUserIdAndStatus(long userId, Status active);
 
 	List<UserQuizEntity> findByQuizIdAndStatus(long quizId, Status active);
+
+	UserQuizEntity findByUserIdAndQuizIdAndStatus(long userId, long id, Status active);
 }

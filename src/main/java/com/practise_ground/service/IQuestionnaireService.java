@@ -20,6 +20,6 @@ public interface IQuestionnaireService {
 
 	ResponseEntity<Boolean> delete(long id);
 
-	ResponseEntity<List<QuestionnaireDTO>> findAll();
+	ResponseEntity<List<QuestionnaireDTO>> findAllByQuizId(long quizId);
 
 }

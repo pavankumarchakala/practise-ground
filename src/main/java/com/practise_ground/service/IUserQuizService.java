@@ -24,4 +24,7 @@ public interface IUserQuizService {
 
 	ResponseEntity<List<UserQuizDTO>> findAllByQuiz(long quizId);
 
+	ResponseEntity<List<UserQuizDTO>> findAllUserQuizByUserSubjectGradeCurrentDate(long subjectId, long gradeId,
+			long userId);
+
 }

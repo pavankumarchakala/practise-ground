@@ -1,5 +1,6 @@
 package com.practise_ground.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,8 @@ public interface IQuizDAO extends JpaRepository<QuizEntity, Long> {
 	List<QuizEntity> findByStatus(Status active);
 
 	QuizEntity findByGradeIdAndSubjectIdAndWeekIdAndYearId(long gradeId, long subjectId, long weekId, long yearId);
+
+	List<QuizEntity> findByGradeIdAndSubjectIdAndYearIdAndWeekEndDateBefore(long gradeId, long subjectId, long yearId,
+			Date currDate);
 
 }

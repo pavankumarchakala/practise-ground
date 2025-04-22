@@ -17,4 +17,6 @@ public interface IQuestionnaireDAO extends JpaRepository<QuestionnaireEntity, Lo
 
 	List<QuestionnaireEntity> findByStatus(Status active);
 
+	List<QuestionnaireEntity> findByQuizIdAndStatus(long quizId, Status active);
+
 }

@@ -1,5 +1,7 @@
 package com.practise_ground.entity;
 
+import java.util.Date;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -31,5 +33,11 @@ public class PractiseGroundWeekEntity extends BaseEntity {
 
 	@Column(name = "name")
 	private String name;
+
+	@Column(name = "start_date")
+	private Date startDate;
+
+	@Column(name = "end_date")
+	private Date endDate;
 
 }

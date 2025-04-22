@@ -63,4 +63,11 @@ public class UserQuizController {
 		return userQuizService.findAllByQuiz(quizId);
 	}
 
+	@GetMapping("/all/{subjectId}/{gradeId}/{userId}")
+	@Hidden
+	public ResponseEntity<List<UserQuizDTO>> findAllUserQuizBySubjectGradeCurrentDate(@PathVariable long subjectId,
+			@PathVariable long gradeId, @PathVariable long userId) {
+		return userQuizService.findAllUserQuizByUserSubjectGradeCurrentDate(subjectId, gradeId, userId);
+	}
+
 }

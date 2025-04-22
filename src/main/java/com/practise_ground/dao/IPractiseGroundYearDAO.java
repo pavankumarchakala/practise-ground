@@ -1,8 +1,10 @@
 package com.practise_ground.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.practise_ground.entity.PractiseGroundYearEntity;
@@ -18,5 +20,8 @@ public interface IPractiseGroundYearDAO extends JpaRepository<PractiseGroundYear
 	List<PractiseGroundYearEntity> findByStatus(Status active);
 
 	PractiseGroundYearEntity findByName(String name);
+
+	@Query(value = "SELECT year FROM PractiseGroundYearEntity year WHERE :currDate BETWEEN year.startDate AND year.endDate")
+	PractiseGroundYearEntity findByCurrDate(Date currDate);
 
 }

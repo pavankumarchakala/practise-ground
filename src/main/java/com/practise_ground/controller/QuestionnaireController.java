@@ -48,9 +48,9 @@ public class QuestionnaireController {
 		return questionnaireService.delete(id);
 	}
 
-	@GetMapping("/all")
-	public ResponseEntity<List<QuestionnaireDTO>> findAll() {
-		return questionnaireService.findAll();
+	@GetMapping("/all/{quizId}")
+	public ResponseEntity<List<QuestionnaireDTO>> findAllByQuizId(@PathVariable long quizId) {
+		return questionnaireService.findAllByQuizId(quizId);
 	}
 
 }

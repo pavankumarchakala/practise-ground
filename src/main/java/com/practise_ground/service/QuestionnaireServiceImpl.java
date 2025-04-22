@@ -78,9 +78,9 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
 	}
 
 	@Override
-	public ResponseEntity<List<QuestionnaireDTO>> findAll() {
+	public ResponseEntity<List<QuestionnaireDTO>> findAllByQuizId(long quizId) {
 
-		return ResponseEntity.ok(questionnaireDAO.findByStatus(Status.ACTIVE).parallelStream()
+		return ResponseEntity.ok(questionnaireDAO.findByQuizIdAndStatus(quizId, Status.ACTIVE).parallelStream()
 				.map(entity -> modelMapper.map(entity, QuestionnaireDTO.class)).toList());
 
 	}
