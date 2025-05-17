@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.practise_ground.dao.IQuestionnaireDAO;
+import com.practise_ground.dto.OptionDTO;
+import com.practise_ground.dto.QuestionDTO;
+import com.practise_ground.dto.QuestionTypeDTO;
 import com.practise_ground.dto.QuestionnaireDTO;
 import com.practise_ground.entity.QuestionnaireEntity;
 import com.practise_ground.enums.Status;
@@ -78,10 +81,25 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
 	}
 
 	@Override
-	public ResponseEntity<List<QuestionnaireDTO>> findAllByQuizId(long quizId) {
+	public ResponseEntity<List<QuestionDTO>> findAllByQuizId(long quizId) {
 
-		return ResponseEntity.ok(questionnaireDAO.findByQuizIdAndStatus(quizId, Status.ACTIVE).parallelStream()
-				.map(entity -> modelMapper.map(entity, QuestionnaireDTO.class)).toList());
+		return ResponseEntity
+				.ok(questionnaireDAO.findByQuizIdAndStatus(quizId, Status.ACTIVE).parallelStream().map(entity -> {
+
+					return QuestionDTO.builder().name(entity.getQuestion())
+							.options(List.of(
+									OptionDTO.builder().name(entity.getOptionA())
+											.isAnswer("A".equalsIgnoreCase(entity.getAnswer())).build(),
+									OptionDTO.builder().name(entity.getOptionB())
+											.isAnswer("B".equalsIgnoreCase(entity.getAnswer())).build(),
+									OptionDTO.builder().name(entity.getOptionC())
+											.isAnswer("C".equalsIgnoreCase(entity.getAnswer())).build(),
+									OptionDTO.builder().name(entity.getOptionD())
+											.isAnswer("D".equalsIgnoreCase(entity.getAnswer())).build()))
+							.questionType(QuestionTypeDTO.builder().name("Multiple Choice").isActive(true).build())
+							.build();
+
+				}).toList());
 
 	}
 

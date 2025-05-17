@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.practise_ground.dto.QuestionDTO;
 import com.practise_ground.dto.QuestionnaireDTO;
 
 /**
@@ -20,6 +21,6 @@ public interface IQuestionnaireService {
 
 	ResponseEntity<Boolean> delete(long id);
 
-	ResponseEntity<List<QuestionnaireDTO>> findAllByQuizId(long quizId);
+	ResponseEntity<List<QuestionDTO>> findAllByQuizId(long quizId);
 
 }

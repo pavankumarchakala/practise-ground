@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practise_ground.dto.QuestionDTO;
 import com.practise_ground.dto.QuestionnaireDTO;
 import com.practise_ground.service.IQuestionnaireService;
 
@@ -49,7 +50,7 @@ public class QuestionnaireController {
 	}
 
 	@GetMapping("/all/{quizId}")
-	public ResponseEntity<List<QuestionnaireDTO>> findAllByQuizId(@PathVariable long quizId) {
+	public ResponseEntity<List<QuestionDTO>> findAllByQuizId(@PathVariable long quizId) {
 		return questionnaireService.findAllByQuizId(quizId);
 	}
 
