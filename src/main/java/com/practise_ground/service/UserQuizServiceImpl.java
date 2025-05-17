@@ -123,8 +123,12 @@ public class UserQuizServiceImpl implements IUserQuizService {
 					UserDTO userDTO = new UserDTO();
 					userDTO.setId(userId);
 
-					QuizDTO quizDTO = new QuizDTO();
-					quizDTO.setId(quizId);
+					QuizDTO quizDTO = quizDAO.findById(quizId).map(item -> {
+						QuizDTO quizDto = new QuizDTO();
+						quizDto.setId(item.getId());
+						quizDto.setName(item.getName());
+						return quizDto;
+					}).orElse(null);
 
 					return UserQuizDTO.builder().quiz(quizDTO)
 							.score(ObjectUtils.isEmpty(userQuiz) ? null : userQuiz.getScore()).user(userDTO)
