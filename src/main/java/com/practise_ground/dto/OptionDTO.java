@@ -1,5 +1,7 @@
 package com.practise_ground.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +25,7 @@ public class OptionDTO extends BaseDTO {
 
 	private String name;
 
+	@JsonProperty("isAnswer")
 	private boolean isAnswer;
 
 }
