@@ -23,4 +23,7 @@ public interface IQuizDAO extends JpaRepository<QuizEntity, Long> {
 	List<QuizEntity> findByGradeIdAndSubjectIdAndYearIdAndWeekEndDateBefore(long gradeId, long subjectId, long yearId,
 			Date currDate);
 
+	List<QuizEntity> findByGradeIdAndSubjectIdAndYearIdAndWeekStartDateBefore(long gradeId, long subjectId, long id,
+			Date currDate);
+
 }

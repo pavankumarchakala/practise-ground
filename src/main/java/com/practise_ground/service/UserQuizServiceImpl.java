@@ -113,7 +113,7 @@ public class UserQuizServiceImpl implements IUserQuizService {
 		PractiseGroundYearEntity year = yearDAO.findByCurrDate(currDate);
 
 		return ResponseEntity.ok(quizDAO
-				.findByGradeIdAndSubjectIdAndYearIdAndWeekEndDateBefore(gradeId, subjectId, year.getId(), currDate)
+				.findByGradeIdAndSubjectIdAndYearIdAndWeekStartDateBefore(gradeId, subjectId, year.getId(), currDate)
 				.parallelStream().map(quiz -> {
 
 					long quizId = quiz.getId();
